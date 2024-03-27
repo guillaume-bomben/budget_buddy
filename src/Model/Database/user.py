@@ -1,4 +1,4 @@
-from DB import DB
+from src.Model.Database.DB import DB
 
 class User(DB):
     def __init__(self):
