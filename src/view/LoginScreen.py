@@ -5,7 +5,6 @@ class LoginScreen:
         self.master = master
         self.master.title("Login")
         self.master.geometry("300x200")
-        self.master.resizable(False,False)
         
         self.statut = None
         self.information = []
