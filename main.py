@@ -1,5 +1,7 @@
-from src.Model.Database.user import User
+from src.view.LoginScreen import LoginScreen
+import tkinter as tk
 
-user = User()
+root = tk.Tk()
 
-print(user.data_list)
+login_screen = LoginScreen(root)
+root.mainloop()
