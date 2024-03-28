@@ -1,4 +1,4 @@
-from DB import DB
+from src.Model.Database.DB import DB
 
 class transaction(DB):
     def __init__(self):
