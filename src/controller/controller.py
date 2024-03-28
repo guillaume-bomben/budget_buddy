@@ -9,3 +9,4 @@ class controller:
         self.windows = Windows()
         
         self.windows.login_screen()
+        self.windows.master.mainloop()
