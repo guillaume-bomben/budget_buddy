@@ -41,3 +41,8 @@ class User(DB):
         query = "SELECT * FROM user WHERE id = %s"
         param = (id,)
         return self.fetch(query,param)
+    
+    def verify_email(self,email):
+        query = "SELECT id FROM user WHERE email = %s"
+        param = (email,)
+        return self.fetch(query,param)
