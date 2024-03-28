@@ -1,3 +1,6 @@
-from src.view.Windows import Windows
+from src.view.home import Home
+import tkinter as tk
 
-Windows()
+windows = tk.Tk()
+Home(windows)
+windows.mainloop()
