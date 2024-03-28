@@ -1,4 +1,5 @@
 import tkinter as tk
+from tkinter import messagebox
 
 class RegisterScreen:
     def __init__(self, master):
