@@ -1,4 +1,5 @@
 from src.view.LoginScreen import LoginScreen
+from src.view.RegisterScreen import RegisterScreen
 from src.view.home import Home
 import tkinter as tk
 import threading
@@ -47,6 +48,21 @@ class Windows:
                     break
                 elif home.statut == "recive":
                     self.statut = "recive"
+                    break
+                else:
+                    print("waiting")
+                time.sleep(1)
+        threading.Thread(target=check).start()
+    
+    def Register_Screen(self):
+        register_screen = RegisterScreen(self.master)
+        self.statut = "register"
+        
+        def check():
+            while self.thread_flag:
+                if register_screen.statut == "register":
+                    self.information = register_screen.information
+                    print(self.information)
                     break
                 else:
                     print("waiting")
