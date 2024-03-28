@@ -13,8 +13,7 @@ class Windows:
         
         self.thread_flag = True
         self.statut = None
-        self.master.mainloop()
-    
+
     def quit(self):
         self.thread_flag = False
         self.master.destroy()
