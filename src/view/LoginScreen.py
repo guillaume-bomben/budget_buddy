@@ -37,6 +37,8 @@ class LoginScreen:
         if email != "" and password != "":
             self.statut = "login"
             self.information = [email,password]
+        else:
+            tk.messagebox.showerror("Erreur","Veuillez remplir tous les champs")
     
     def register(self):
         self.statut = "register"
