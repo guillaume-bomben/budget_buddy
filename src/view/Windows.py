@@ -12,7 +12,6 @@ class Windows:
         
         self.thread_flag = True
         self.statut = None
-        self.login_screen()
         self.master.mainloop()
     
     def quit(self):
