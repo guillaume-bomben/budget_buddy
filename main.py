@@ -1,6 +1,5 @@
 from src.view.home import Home
+from src.view.Windows import Windows
 import tkinter as tk
 
-windows = tk.Tk()
-Home(windows)
-windows.mainloop()
+Windows().home_page()
