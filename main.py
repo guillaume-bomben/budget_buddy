@@ -1,7 +1,7 @@
-from src.view.LoginScreen import LoginScreen
+from src.view.RegisterScreen import RegisterScreen
 import tkinter as tk
 
 root = tk.Tk()
 
-login_screen = LoginScreen(root)
+login_screen = RegisterScreen(root)
 root.mainloop()

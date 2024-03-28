@@ -9,13 +9,19 @@ class RegisterScreen:
         self.status = None
         self.information = []
         self.widgets()
-    
+
     def widgets(self):
-        self.label_username = tk.Label(self.master, text="Username")
-        self.label_username.pack()
+        self.label_first_name = tk.Label(self.master, text="Nom")
+        self.label_first_name.pack()
         
-        self.entry_username = tk.Entry(self.master)
-        self.entry_username.pack()
+        self.entry_first_name = tk.Entry(self.master)
+        self.entry_first_name.pack()
+        
+        self.label_last_name = tk.Label(self.master, text="Prénom")
+        self.label_last_name.pack()
+        
+        self.entry_last_name = tk.Entry(self.master)
+        self.entry_last_name.pack()
         
         self.label_email = tk.Label(self.master, text="Email")
         self.label_email.pack()
@@ -34,7 +40,7 @@ class RegisterScreen:
         
         self.login = tk.Button(self.master, text="Login", command=self.login)
         self.login.pack()
-    
+
     def register(self):
         username = self.entry_username.get()
         email = self.entry_email.get()
@@ -43,9 +49,8 @@ class RegisterScreen:
         if username != "" and email != "" and password != "":
             self.status = "register"
             self.information = [username, email, password]
-            
-        
+        else:
+            tk.messagebox.showerror("Erreur", "Veuillez remplir tous les champs")
+
     def login(self):
         self.status = "login"
-       
-   
