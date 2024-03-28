@@ -1,7 +1,3 @@
-from src.view.LoginScreen import LoginScreen
-import tkinter as tk
+from src.view.Windows import Windows
 
-root = tk.Tk()
-
-login_screen = LoginScreen(root)
-root.mainloop()
+Windows()
