@@ -1,5 +1,5 @@
-from src.Model.Database.user import User
+from src.view.home import Home
+from src.view.Windows import Windows
+import tkinter as tk
 
-user = User()
-
-print(user.data_list)
+Windows().home_page()
