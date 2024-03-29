@@ -1,5 +1,3 @@
-from src.view.home import Home
-from src.view.Windows import Windows
-import tkinter as tk
+from src.controller.controller import controller
 
-Windows().home_page()
+controller = controller()
