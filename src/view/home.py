@@ -6,7 +6,6 @@ class Home(tk.Frame):
 
         self.statut = None
         self.widgets()
-        self.master.mainloop()
         
     def widgets(self):
         frame = tk.Frame(master=self)
