@@ -4,66 +4,82 @@ from src.view.home import Home
 import tkinter as tk
 import threading
 import time
+import os
 
 class Windows:
     def __init__(self):
         self.master = tk.Tk()
         self.master.resizable(False,False)
+        self.master.geometry("800x600")
         self.master.protocol("WM_DELETE_WINDOW",self.quit)
         
-        self.thread_flag = True
+        self.thread_flag = None
         self.statut = None
 
     def quit(self):
         self.thread_flag = False
         self.master.destroy()
+        os._exit(0)
     
     def login_screen(self):
-        login_screen = LoginScreen(self.master)
-        self.statut = "login"
+        self.log_screen = LoginScreen(self.master)
+        self.log_screen.pack()
+        print("login")
         
         def check():
+            self.thread_flag = True
             while self.thread_flag:
-                if login_screen.statut == "login":
-                    self.information = login_screen.information
+                if self.log_screen.statut == "login":
+                    self.statut = "login"
+                    self.information = self.log_screen.information
                     print(self.information)
                     break
+                elif self.log_screen.statut == "register":
+                    self.statut = "register"
+                    break
                 else:
-                    print("waiting")
+                    print("waiting_1")
                 time.sleep(1)
         threading.Thread(target=check).start()
 
+    def forget_login(self):
+        self.log_screen.pack_forget()
+
     def home_page(self):
-        home = Home(self.master)
-        self.statut = "home"
+        self.home = Home(self.master)
+        self.home.pack()
         
         def check():
+            self.thread_flag = True
             while self.thread_flag:
-                if home.statut == "logout":
+                if self.home.statut == "logout":
                     self.statut = "logout"
                     break
-                elif home.statut == "send":
+                elif self.home.statut == "send":
                     self.statut = "send"
                     break
-                elif home.statut == "recive":
+                elif self.home.statut == "recive":
                     self.statut = "recive"
                     break
                 else:
-                    print("waiting")
+                    print("waiting_2")
                 time.sleep(1)
         threading.Thread(target=check).start()
     
     def Register_Screen(self):
-        register_screen = RegisterScreen(self.master)
-        self.statut = "register"
+        
+        self.register_screen = RegisterScreen(self.master)
+        self.register_screen.pack()
         
         def check():
+            self.thread_flag = True
             while self.thread_flag:
-                if register_screen.statut == "register":
-                    self.information = register_screen.information
+                if self.register_screen.statut == "register":
+                    self.statut = "register"
+                    self.information = self.register_screen.information
                     print(self.information)
                     break
                 else:
-                    print("waiting")
+                    print("waiting_3")
                 time.sleep(1)
         threading.Thread(target=check).start()
