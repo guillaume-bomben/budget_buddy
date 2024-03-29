@@ -35,7 +35,7 @@ class User(DB):
     def get_id(self,email,password):
         query = "SELECT id FROM user WHERE email = %s AND password = %s"
         param = (email,password)
-        return self.fetch(query,param)[0]['id']
+        return self.fetch(query,param)
 
     def get_user(self,id):
         query = "SELECT * FROM user WHERE id = %s"
