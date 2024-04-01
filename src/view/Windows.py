@@ -13,7 +13,6 @@ class Windows:
     def __init__(self):
         self.master = tk.Tk()
         self.master.resizable(False,False)
-        self.master.geometry("800x600")
         self.master.protocol("WM_DELETE_WINDOW",self.quit)
         
         self.thread_flag = None
@@ -25,6 +24,8 @@ class Windows:
         os._exit(0)
     
     def login_screen(self):
+        self.master.geometry("200x125")
+
         self.log_screen = LoginScreen(self.master)
         self.log_screen.pack()
         print("login")
@@ -37,17 +38,17 @@ class Windows:
                     self.information = self.log_screen.information
                     print(self.information)
                     self.thread_flag = False
-                elif self.log_screen.statut == "register":
+                elif self.log_screen.statut == "register page":
                     self.log_screen.statut = None
-                    self.statut = "register"
+                    self.statut = "register page"
                     self.thread_flag = False
                 else:
                     print("waiting_1")
                 time.sleep(1)
         threading.Thread(target=check).start()
 
-    def home_page(self):
-        self.home = Home(self.master)
+    def home_page(self,balance):
+        self.home = Home(self.master,balance)
         self.home.pack()
         
         def check():
@@ -71,7 +72,7 @@ class Windows:
         threading.Thread(target=check).start()
     
     def Register_Screen(self):
-        
+        self.master.geometry("200x210")
         self.register_screen = RegisterScreen(self.master)
         self.register_screen.pack()
         
@@ -83,6 +84,10 @@ class Windows:
                     self.statut = "Create account"
                     self.information = self.register_screen.information
                     print(self.information)
+                    self.thread_flag = False
+                elif self.register_screen.statut == "login page":
+                    self.register_screen.statut = None
+                    self.statut = "login page"
                     self.thread_flag = False
                 else:
                     print("waiting_3")
