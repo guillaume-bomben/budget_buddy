@@ -13,6 +13,7 @@ class controller:
         self.windows.master.protocol("WM_DELETE_WINDOW",self.windows.quit)
         
         self.id_user = None
+        self.balance = None
         
         self.windows.login_screen()
         threading.Thread(target=self.change_page_logic).start()
@@ -21,9 +22,10 @@ class controller:
     def login(self,email,password):
         if self.user.get_id(email,password):
             self.id_user = self.user.get_id(email,password)[0][0]
+            self.balance = self.user.get_balance(self.id_user)[0][0]
             print(self.id_user)
             self.windows.log_screen.pack_forget()
-            self.windows.home_page()
+            self.windows.home_page(self.balance)
         else:
             tk.messagebox.showerror("Erreur","Email ou mot de passe incorrect")
             self.running = True
@@ -36,11 +38,13 @@ class controller:
     def register_to_login(self):
         self.windows.register_screen.pack_forget()
         self.windows.login_screen()
-    
+
+
     def home_to_transaction(self):
         self.windows.home.pack_forget()
         self.windows.transaction_screen(self.user.user_list)
-    
+
+
     def home_to_operation_list(self):
         self.windows.home.pack_forget()
         transaction_list = self.transaction.get_transaction_list(self.id_user)
@@ -53,6 +57,7 @@ class controller:
             new_transaction_list.append([user_send,user_recive,transaction_list[i][2],transaction_list[i][3],transaction_list[i][4]])
         self.windows.list_transaction_screen(new_transaction_list)
 
+
     def register(self,lastname,firstname,email,password):
         if self.user.verify_email(email) != []:
             tk.messagebox.showerror("Erreur","Cette Email est deja utilisé")
@@ -62,17 +67,20 @@ class controller:
             self.user.create(lastname,firstname,email,password,0)
             self.windows.register_screen.pack_forget()
             self.windows.login_screen()
-            
-    
+
+
     def change_page_logic(self):
         self.running = True
         while self.running:
-            if self.windows.statut == "register":
+            if self.windows.statut == "register page":
                 self.windows.statut = None
                 self.login_to_register()
             elif self.windows.statut == "login":
                 self.windows.statut = None
                 self.login(self.windows.information[0],self.windows.information[1])
+            elif self.windows.statut == "login page":
+                self.windows.statut = None
+                self.register_to_login()
             elif self.windows.statut == "Create account":
                 self.windows.statut = None
                 print(self.windows.information)
@@ -92,6 +100,7 @@ class controller:
                         self.user.update_balance(self.id_user,self.user.get_balance(self.id_user)+self.windows.information[1])
                     else:
                         self.user.update_balance(self.id_user,self.user.get_balance(self.id_user)-self.windows.information[1])
+                self.balance = self.user.get_balance(self.id_user)[0][0]
             elif self.windows.statut == "transaction list":
                 self.windows.statut = None
                 self.home_to_operation_list()
