@@ -4,7 +4,9 @@ class User(DB):
     def __init__(self):
         super().__init__()
         self.data_list = []
+        self.user_list = []
         self.read()
+        self.get_user_list()
         
     def create(self,lastname,firstname,email,password,balance):
         query = "INSERT INTO user (last_name,first_name,email,password,balance) VALUES (%s,%s,%s,%s,%s)"
@@ -46,3 +48,10 @@ class User(DB):
         query = "SELECT id FROM user WHERE email = %s"
         param = (email,)
         return self.fetch(query,param)
+    
+    def get_user_list(self):
+        query = "SELECT id,first_name,last_name FROM user"
+        self.user_list = []
+        for line in self.fetch(query):
+            self.user_list.append(line)
+        return self.user_list
