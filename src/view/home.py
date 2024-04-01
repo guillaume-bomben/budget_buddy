@@ -15,20 +15,20 @@ class Home(tk.Frame):
         self.header_frame = tk.Frame(master=frame)
         self.header_frame.pack()
         
-        self.balance_label = tk.Label(self.header_frame, text=f"SOLDE : {self.balance}", font=("Arial", 20))
-        self.balance_label.grid(row=0, column=3, padx=30)
+        self.balance_label = tk.Label(self.header_frame, text=f"SOLDE : {self.balance}", font=("Arial", 15))
+        self.balance_label.grid(row=0, column=0, padx=30)
         
         self.button_logout = tk.Button(self.header_frame, text="déconnexion", command=self.logout)
-        self.button_logout.grid(row=0, column=0, padx=10)
+        self.button_logout.grid(row=0, column=1, padx=10)
         
         self.button_list = tk.Button(self.header_frame, text="liste operation", command=self.operation_list)
-        self.button_list.grid(row=0, column=1, padx=10)
+        self.button_list.grid(row=0, column=2, padx=10)
         
         self.button_transaction = tk.Button(self.header_frame, text="transaction", command=self.transaction)
-        self.button_transaction.grid(row=0, column=2, padx=10)
+        self.button_transaction.grid(row=0, column=3, padx=10)
 
     def logout(self):
-        self.statut = "logout"
+        self.statut = "login page"
     
     def operation_list(self):
         self.statut = "transaction list"
