@@ -27,7 +27,7 @@ class User(DB):
     def get_balance(self,id):
         query = "SELECT balance FROM user WHERE id = %s"
         param = (id,)
-        return self.fetch(query,param)[0]['balance']
+        return self.fetch(query,param)
 
     def update_balance(self,id,balance):
         query = "UPDATE user SET balance = %s WHERE id = %s"
