@@ -43,6 +43,18 @@ class controller:
     def home_to_transaction(self):
         self.windows.home.pack_forget()
         self.windows.transaction_screen(self.user.user_list)
+        
+    def home_to_login(self):
+        self.windows.home.pack_forget()
+        self.windows.login_screen()
+    
+    def transaction_to_home(self):
+        self.windows.transaction_screen.pack_forget()
+        self.windows.home_page(self.balance)
+    
+    def transaction_list_to_home(self):
+        self.windows.list_transaction_screen.pack_forget()
+        self.windows.home_page(self.balance)
 
 
     def home_to_operation_list(self):
@@ -80,7 +92,10 @@ class controller:
                 self.login(self.windows.information[0],self.windows.information[1])
             elif self.windows.statut == "login page":
                 self.windows.statut = None
-                self.register_to_login()
+                try:
+                    self.register_to_login()
+                except:
+                    self.home_to_login()
             elif self.windows.statut == "Create account":
                 self.windows.statut = None
                 print(self.windows.information)
@@ -104,3 +119,9 @@ class controller:
             elif self.windows.statut == "transaction list":
                 self.windows.statut = None
                 self.home_to_operation_list()
+            elif self.windows.statut == "home page":
+                self.windows.statut = None
+                try:
+                    self.transaction_to_home()
+                except:
+                    self.transaction_list_to_home()
