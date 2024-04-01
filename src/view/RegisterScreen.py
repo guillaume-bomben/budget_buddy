@@ -31,17 +31,20 @@ class RegisterScreen(tk.Frame):
         self.entry_email = tk.Entry(master=frame)
         self.entry_email.pack()
         
-        self.label_password = tk.Label(master=frame, text="Password")
+        self.label_password = tk.Label(master=frame, text="mot de passe")
         self.label_password.pack()
         
         self.entry_password = tk.Entry(master=frame, show="*")
         self.entry_password.pack()
         
-        self.button_register = tk.Button(master=frame, text="Register", command=self.register)
-        self.button_register.pack()
+        self.button_frame = tk.Frame(master=frame)
+        self.button_frame.pack(pady=10)
         
-        self.login = tk.Button(master=frame, text="Login", command=self.login)
-        self.login.pack()
+        self.button_register = tk.Button(self.button_frame, text="Inscription", command=self.register)
+        self.button_register.grid(row=0, column=0, padx=5)
+        
+        self.button_login = tk.Button(self.button_frame, text="Conexion", command=self.login)
+        self.button_login.grid(row=0, column=1, padx=5)
 
     def register(self):
         first_name = self.entry_first_name.get()
@@ -56,4 +59,4 @@ class RegisterScreen(tk.Frame):
             tk.messagebox.showerror("Erreur", "Veuillez remplir tous les champs")
 
     def login(self):
-        self.statut = "login"
+        self.statut = "login page"
