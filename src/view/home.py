@@ -22,6 +22,9 @@ class Home(tk.Frame):
         
         self.button_recive = tk.Button(master=frame, text="revenue", command=self.recive)
         self.button_recive.pack()
+        
+        self.button_transaction = tk.Button(master=frame, text="transaction", command=self.transaction)
+        self.button_transaction.pack()
 
     def logout(self):
         self.statut = "logout"
@@ -31,3 +34,6 @@ class Home(tk.Frame):
     
     def recive(self):
         self.statut = "recive"
+        
+    def transaction(self):
+        self.statut = "transaction page"
