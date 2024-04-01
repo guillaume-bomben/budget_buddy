@@ -44,13 +44,14 @@ class RegisterScreen(tk.Frame):
         self.login.pack()
 
     def register(self):
-        username = self.entry_username.get()
+        first_name = self.entry_first_name.get()
+        last_name = self.entry_last_name.get()
         email = self.entry_email.get()
         password = self.entry_password.get()
         
-        if username != "" and email != "" and password != "":
-            self.statut = "register"
-            self.information = [username, email, password]
+        if first_name != "" and last_name != "" and email != "" and password != "":
+            self.statut = "Create account"
+            self.information = [first_name,last_name, email, password]
         else:
             tk.messagebox.showerror("Erreur", "Veuillez remplir tous les champs")
 
