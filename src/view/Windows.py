@@ -1,6 +1,7 @@
 from src.view.LoginScreen import LoginScreen
 from src.view.RegisterScreen import RegisterScreen
 from src.view.transactionScreen import TransactionScreen
+from src.view.ListTransactionScreen import ListTransactionScreen
 from src.view.home import Home
 import tkinter as tk
 import threading
@@ -56,13 +57,9 @@ class Windows:
                     self.home.statut = None
                     self.statut = "logout"
                     self.thread_flag = False
-                elif self.home.statut == "send":
+                elif self.home.statut == "transaction list":
                     self.home.statut = None
-                    self.statut = "send"
-                    self.thread_flag = False
-                elif self.home.statut == "recive":
-                    self.home.statut = None
-                    self.statut = "recive"
+                    self.statut = "transaction list"
                     self.thread_flag = False
                 elif self.home.statut == "transaction page":
                     self.home.statut = None
@@ -108,5 +105,21 @@ class Windows:
                     self.thread_flag = False
                 else:
                     print("waiting_4")
+                time.sleep(1)
+        threading.Thread(target=check).start()
+    
+    def list_transaction_screen(self,transactions):
+        self.list_transaction_screen = ListTransactionScreen(self.master,transactions)
+        self.list_transaction_screen.pack()
+        
+        def check():
+            self.thread_flag = True
+            while self.thread_flag:
+                if self.list_transaction_screen.statut == "back":
+                    self.list_transaction_screen.statut = None
+                    self.statut = "back"
+                    self.thread_flag = False
+                else:
+                    print("waiting_5")
                 time.sleep(1)
         threading.Thread(target=check).start()
