@@ -1,4 +1,3 @@
-import threading
 import tkinter as tk
 from tkinter import messagebox
 from tkinter import ttk
@@ -28,25 +27,23 @@ class TransactionScreen(tk.Frame):
         self.entry_amount = tk.Entry(master=frame)
         self.entry_amount.pack()
         
-        def widgetPlus():
-            while True:
-                if self.entry_type.get() == "virement":
-                    self.label_user = tk.Label(master=frame, text="destinataire")
-                    self.label_user.pack()
-                    
-                    self.entry_user = ttk.Combobox(master=frame, values=self.user_list)
-                    self.entry_user.pack()
-                    
-                    self.label_description = tk.Label(master=frame, text="Description")
-                    self.label_description.pack()
-                    
-                    self.entry_description = tk.Entry(master=frame)
-                    self.entry_description.pack()
-                    break
-        threading.Thread(target=widgetPlus).start()
+        self.label_user = tk.Label(master=frame, text="destinataire")
+        self.label_user.pack()
+        
+        self.entry_user = ttk.Combobox(master=frame, values=self.user_list)
+        self.entry_user.pack()
+        
+        self.label_description = tk.Label(master=frame, text="Description")
+        self.label_description.pack()
+        
+        self.entry_description = tk.Entry(master=frame)
+        self.entry_description.pack()
         
         self.button_transaction = tk.Button(master=frame, text="Transaction", command=self.transaction)
         self.button_transaction.pack()
+        
+        self.button_return = tk.Button(master=frame, text="Retour", command=self.back)
+        self.button_return.pack()
     
     def transaction(self):
         type = self.entry_type.get()
@@ -65,4 +62,6 @@ class TransactionScreen(tk.Frame):
             self.information = [type,amount]
         else:
             tk.messagebox.showerror("Erreur", "Veuillez remplir tous les champs")
-            
+    
+    def back(self):
+        self.statut = "home page"
