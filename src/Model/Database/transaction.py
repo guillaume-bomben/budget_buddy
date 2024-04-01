@@ -41,3 +41,11 @@ class transaction(DB):
         query = "SELECT id_user_recive FROM transaction WHERE id = %s"
         param = (id,)
         return self.fetch(query,param)
+    
+    def get_transaction_list(self,id):
+        query = "SELECT id_user_send,id_user_recive,description,amount,type FROM transaction WHERE id_user_send = %s OR id_user_recive = %s"
+        param = (id,id)
+        transaction_list = []
+        for line in self.fetch(query,param):
+            transaction_list.append(line)
+        return transaction_list
