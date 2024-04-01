@@ -17,11 +17,8 @@ class Home(tk.Frame):
         self.button_logout = tk.Button(master=frame, text="déconnexion", command=self.logout)
         self.button_logout.pack()
         
-        self.button_send = tk.Button(master=frame, text="depense", command=self.send)
-        self.button_send.pack()
-        
-        self.button_recive = tk.Button(master=frame, text="revenue", command=self.recive)
-        self.button_recive.pack()
+        self.button_list = tk.Button(master=frame, text="liste operation", command=self.operation_list)
+        self.button_list.pack()
         
         self.button_transaction = tk.Button(master=frame, text="transaction", command=self.transaction)
         self.button_transaction.pack()
@@ -29,11 +26,8 @@ class Home(tk.Frame):
     def logout(self):
         self.statut = "logout"
     
-    def send(self):
-        self.statut = "send"
-    
-    def recive(self):
-        self.statut = "recive"
-        
+    def operation_list(self):
+        self.statut = "transaction list"
+
     def transaction(self):
         self.statut = "transaction page"
