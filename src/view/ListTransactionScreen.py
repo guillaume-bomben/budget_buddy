@@ -35,4 +35,4 @@ class ListTransactionScreen(tk.Frame):
         self.button_back.pack()
     
     def back(self):
-        self.statut = "back"
+        self.statut = "home page"
