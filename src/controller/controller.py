@@ -12,40 +12,71 @@ class controller:
         self.windows = Windows()
         self.windows.master.protocol("WM_DELETE_WINDOW",self.windows.quit)
         
+        self.id_user = None
+        
         self.windows.login_screen()
         threading.Thread(target=self.change_page_logic).start()
         self.windows.master.mainloop()
 
     def login(self,email,password):
         if self.user.get_id(email,password):
+            self.id_user = self.user.get_id(email,password)[0][0]
+            print(self.id_user)
             self.windows.log_screen.pack_forget()
             self.windows.home_page()
         else:
-            self.windows.master.messagebox.showerror("Erreur","Email ou mot de passe incorrect")
+            tk.messagebox.showerror("Erreur","Email ou mot de passe incorrect")
+            self.running = True
+            self.windows.thread_flag = True
 
     def login_to_register(self):
-        self.windows.forget_login()
+        self.windows.log_screen.pack_forget()
         self.windows.Register_Screen()
 
     def register_to_login(self):
         self.windows.register_screen.pack_forget()
         self.windows.login_screen()
+    
+    def home_to_transaction(self):
+        self.windows.home.pack_forget()
+        self.windows.transaction_screen(self.user.user_list)
 
-    def register(self,lastname,firstname,email,password,balance):
-        if type(self.user.verify_email(email)[0]) != int:
-            self.windows.master.messagebox.showerror("Erreur","Cette Email est deja utilisé")
+    def register(self,lastname,firstname,email,password):
+        if self.user.verify_email(email) != []:
+            tk.messagebox.showerror("Erreur","Cette Email est deja utilisé")
+            self.running = True
+            self.windows.thread_flag = True
         else:
-            self.user.create(lastname,firstname,email,password,balance)
+            self.user.create(lastname,firstname,email,password,0)
             self.windows.register_screen.pack_forget()
             self.windows.login_screen()
             
     
     def change_page_logic(self):
-        running = True
-        while running:
+        self.running = True
+        while self.running:
             if self.windows.statut == "register":
+                self.windows.statut = None
                 self.login_to_register()
-                running = False
             elif self.windows.statut == "login":
+                self.windows.statut = None
                 self.login(self.windows.information[0],self.windows.information[1])
-                running = False
+            elif self.windows.statut == "Create account":
+                self.windows.statut = None
+                print(self.windows.information)
+                self.register(self.windows.information[0],self.windows.information[1],self.windows.information[2],self.windows.information[3])
+            elif self.windows.statut == "transaction page":
+                self.windows.statut = None
+                self.home_to_transaction()
+            elif self.windows.statut == "transaction":
+                self.windows.statut = None
+                if self.windows.information[0] == "virement":
+                    self.transaction.create(self.id_user,self.windows.information[2],self.windows.information[3],self.windows.information[1],self.windows.information[0])
+                    self.user.update_balance(self.id_user,self.user.get_balance(self.id_user)-self.windows.information[1])
+                    self.user.update_balance(self.windows.information[2],self.user.get_balance(self.windows.information[2])+self.windows.information[1])
+                else:
+                    self.transaction.create(self.id_user,self.id_user,"",self.windows.information[1],self.windows.information[0])
+                    if self.windows.information[0] == "depot":
+                        self.user.update_balance(self.id_user,self.user.get_balance(self.id_user)+self.windows.information[1])
+                    else:
+                        self.user.update_balance(self.id_user,self.user.get_balance(self.id_user)-self.windows.information[1])
