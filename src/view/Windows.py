@@ -48,15 +48,17 @@ class Windows:
         threading.Thread(target=check).start()
 
     def home_page(self,balance):
+        self.master.geometry("500x400")
+
         self.home = Home(self.master,balance)
         self.home.pack()
         
         def check():
             self.thread_flag = True
             while self.thread_flag:
-                if self.home.statut == "logout":
+                if self.home.statut == "login page":
                     self.home.statut = None
-                    self.statut = "logout"
+                    self.statut = "login page"
                     self.thread_flag = False
                 elif self.home.statut == "transaction list":
                     self.home.statut = None
@@ -96,6 +98,7 @@ class Windows:
     
     
     def transaction_screen(self,user_list):
+        self.master.geometry("225x250")
         self.transaction_screen = TransactionScreen(self.master,user_list)
         self.transaction_screen.pack()
         
@@ -107,6 +110,10 @@ class Windows:
                     self.statut = "transaction"
                     self.information = self.transaction_screen.information
                     print(self.information)
+                    self.thread_flag = False
+                elif self.transaction_screen.statut == "home page":
+                    self.transaction_screen.statut = None
+                    self.statut = "home page"
                     self.thread_flag = False
                 else:
                     print("waiting_4")
@@ -120,9 +127,9 @@ class Windows:
         def check():
             self.thread_flag = True
             while self.thread_flag:
-                if self.list_transaction_screen.statut == "back":
+                if self.list_transaction_screen.statut == "home page":
                     self.list_transaction_screen.statut = None
-                    self.statut = "back"
+                    self.statut = "home page"
                     self.thread_flag = False
                 else:
                     print("waiting_5")
